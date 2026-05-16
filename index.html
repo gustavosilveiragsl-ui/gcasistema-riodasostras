@@ -13562,7 +13562,8 @@ function abrirModalConfirmacao(atendimentoId, nomeColaborador, qtdItens) {
 
       google.script.run
         .withSuccessHandler(function(urlBase) {
-          const link = urlBase + '?token=' + res.token;
+          const separator = urlBase.includes('?') ? '&' : '?';
+          const link = urlBase + separator + 'token=' + res.token;
           _linkConfirmacaoAtual = link;
 
           // Preenche as infos no modal
@@ -13903,7 +13904,8 @@ function reenviarLink(atendimentoId, nomeColaborador, tokenAtual) {
 
   google.script.run
     .withSuccessHandler(function(urlBase) {
-      const link = urlBase + '?token=' + tokenAtual;
+      const separator = urlBase.includes('?') ? '&' : '?';
+      const link = urlBase + separator + 'token=' + tokenAtual;
       _linkConfirmacaoAtual = link;
 
       document.getElementById('modalNomeColab').textContent = nomeColaborador;
