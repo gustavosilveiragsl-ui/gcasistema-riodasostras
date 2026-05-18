@@ -18858,6 +18858,15 @@ function abrirGestSol(id) {
       </button>`;
   }
 
+     if (s.status === 'EM TRANSITO') {
+    acoes.innerHTML += `
+      <button onclick="mudarStatusGestSol('CANCELADO')"
+        style="background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); border-radius:12px;
+        padding:12px; color:#ef4444; font-size:14px; font-weight:600; cursor:pointer; width:100%;">
+        ❌ Cancelar Solicitação
+      </button>`;
+  }
+
   document.getElementById('modalGestSol').style.display = 'flex';
 }
 
