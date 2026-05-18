@@ -19345,9 +19345,14 @@ function selecionarItemEdicaoSol(id, nome, codigo) {
   document.getElementById('editSolItemQtd').focus();
 }
 
-document.getElementById('editSolItemBusca')?.addEventListener('blur', () =>
-  setTimeout(() => document.getElementById('editSolItemLista').style.display = 'none', 200)
-);
+document.addEventListener('blur', function(e) {
+  if (e.target && e.target.id === 'editSolItemBusca') {
+    setTimeout(() => {
+      const lista = document.getElementById('editSolItemLista');
+      if (lista) lista.style.display = 'none';
+    }, 200);
+  }
+}, true);
 
 function adicionarItemEdicaoSol() {
   const itemId = document.getElementById('editSolItemId').value;
