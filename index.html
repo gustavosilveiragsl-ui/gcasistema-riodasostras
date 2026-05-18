@@ -18892,11 +18892,6 @@ function abrirGestSol(id) {
         padding:14px; color:#fff; font-size:15px; font-weight:700; cursor:pointer; width:100%;">
         ✅ Atender Pedido — Gerar Atendimento
       </button>
-     <button onclick="abrirEdicaoSolicitacao()"
-      style="background:rgba(0,184,230,0.12); border:1px solid rgba(0,184,230,0.3); border-radius:12px;
-      padding:12px; color:#00B8E6; font-size:14px; font-weight:600; cursor:pointer; width:100%;">
-      ✏️ Editar Itens da Solicitação
-    </button>
       <button onclick="mudarStatusGestSol('CANCELADO')"
         style="background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); border-radius:12px;
         padding:12px; color:#ef4444; font-size:14px; font-weight:600; cursor:pointer; width:100%;">
@@ -18932,14 +18927,6 @@ function abrirGestSol(id) {
         padding:13px; color:#00B8E6; font-size:14px; font-weight:700; cursor:pointer; width:100%;">
         🚚 Marcar como Em Trânsito
       </button>
-      <button onclick="mudarStatusGestSol('CANCELADO')"
-        style="background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); border-radius:12px;
-        padding:12px; color:#ef4444; font-size:14px; font-weight:600; cursor:pointer; width:100%;">
-        ❌ Cancelar Solicitação
-      </button>`;
-     
-     if (s.status === 'EM TRANSITO') {
-    acoes.innerHTML += `
       <button onclick="mudarStatusGestSol('CANCELADO')"
         style="background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); border-radius:12px;
         padding:12px; color:#ef4444; font-size:14px; font-weight:600; cursor:pointer; width:100%;">
