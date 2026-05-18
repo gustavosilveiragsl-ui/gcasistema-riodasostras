@@ -18498,10 +18498,22 @@ function carregarSolicitacoesGestao() {
     .withSuccessHandler(function(res) {
       if (!res.sucesso) { console.error(res.erro); return; }
       window._todasSolicitacoes = res.lista || [];
-      window._gestSolPagina = 1; // ← reseta paginação ao recarregar
-      popularFiltroArmazem();    // ← popula o filtro de armazém
-      renderSolicitacoesGestao();
-      atualizarBadgeSolicitacoes();
+      window._gestSolPagina = 1;
+      popularFiltroArmazem();
+
+      // Busca colaboradores com assinaturas pendentes
+      google.script.run
+        .withSuccessHandler(function(colabsComPendencia) {
+          window._colabsComAssinaturaPendente = colabsComPendencia || [];
+          renderSolicitacoesGestao();
+          atualizarBadgeSolicitacoes();
+        })
+        .withFailureHandler(function() {
+          window._colabsComAssinaturaPendente = [];
+          renderSolicitacoesGestao();
+          atualizarBadgeSolicitacoes();
+        })
+        .listarColaboradoresComAssinaturasPendentes();
     })
     .withFailureHandler(function(err) {
       console.error('Erro solicitações:', err);
@@ -18610,15 +18622,11 @@ function renderSolicitacoesGestao() {
       ? `<span style="background:rgba(168,85,247,0.2); color:#a855f7; border:1px solid rgba(168,85,247,0.4); padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700;">👕 Troca de Tamanho</span>`
       : '';
 
-     // ← TAG ATENDIMENTOS PENDENTES DO COLABORADOR
-const solicitacoesAbertasColab = (window._todasSolicitacoes || []).filter(other =>
-  other.colaboradorId === s.colaboradorId &&
-  other.id !== s.id &&
-  !['FINALIZADO', 'CANCELADO'].includes(other.status)
-).length;
-
-const tagPendentes = solicitacoesAbertasColab > 0
-  ? `<span style="background:rgba(239,68,68,0.2); color:#ef4444; border:1px solid rgba(239,68,68,0.4); padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700;">🔔 ${solicitacoesAbertasColab} solicitação(ões) em aberto</span>`
+     // ← TAG ASSINATURA PENDENTE
+const temAssinaturaPendente = (window._colabsComAssinaturaPendente || [])
+  .includes(s.colaboradorId);
+const tagPendentes = temAssinaturaPendente
+  ? `<span style="background:rgba(239,68,68,0.2); color:#ef4444; border:1px solid rgba(239,68,68,0.4); padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700;">✍️ Assinatura pendente</span>`
   : '';
 
     // ← TAG ITEM FORA DO PRAZO
