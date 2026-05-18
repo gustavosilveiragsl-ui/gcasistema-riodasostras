@@ -19269,7 +19269,19 @@ function imprimirFichaSeparacao() {
   });
 
   const agora    = new Date().toLocaleString('pt-BR');
-  const dataHoje = new Date().toLocaleDateString('pt-BR');
+const dataHoje = new Date().toLocaleDateString('pt-BR');
+
+// Busca dados do colaborador
+const colabId   = document.getElementById('atendColabId')?.value || '';
+const colabData = (colaboradores || []).find(c => c.id === colabId);
+const funcaoColab = colabData?.funcao || '—';
+const setorColab  = colabData?.setor  || colabData?.base || '—';
+
+     // Busca dados da solicitação vinculada
+const solId     = window.__SOLICITACAO_ATENDIMENTO_ID__ || 
+                  window._gestSolAtual?.id || '';
+const solData   = (window._todasSolicitacoes || []).find(s => s.id === solId);
+const solicitanteNome = solData?.solicitanteNome || '—';
 
   // Gera QR code como imagem base64 usando a biblioteca já carregada na página
   let qrImageSrc = '';
@@ -19354,9 +19366,13 @@ function imprimirFichaSeparacao() {
         </div>
       </div>
 
-      <div class="info-box">
-        <p><strong>Colaborador:</strong> ${nomeColab}</p>
-        <p><strong>Total de itens:</strong> ${itensAtend.length} tipo(s) · ${itensAtend.reduce((s, i) => s + (Number(i.quantidade) || 1), 0)} unidade(s)</p>
+       <div class="info-box">
+<p><strong>Colaborador:</strong> ${nomeColab}</p>
+<p><strong>Função:</strong> ${funcaoColab}</p>
+<p><strong>Setor:</strong> ${setorColab}</p>
+${solId ? `<p><strong>Solicitação:</strong> ${solId}</p>` : ''}
+${solId && solicitanteNome !== '—' ? `<p><strong>Encarregado:</strong> ${solicitanteNome}</p>` : ''}
+  <p><strong>Total de itens:</strong> ...
       </div>
 
       <table>
