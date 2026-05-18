@@ -5387,26 +5387,9 @@ setTimeout(function iniciaPollingSolicitacoes() {
     .withSuccessHandler(function(res) {
       if (res && res.sucesso) {
         window._todasSolicitacoes = res.lista || [];
-
-        // Atualiza também as pendências de assinatura
-        google.script.run
-          .withSuccessHandler(function(colabs) {
-            window._colabsComAssinaturaPendente = colabs || [];
-            if (typeof atualizarBadgeSolicitacoes === 'function') {
-              atualizarBadgeSolicitacoes();
-            }
-            if (typeof renderSolicitacoesGestao === 'function' &&
-                document.getElementById('view-gestao-solicitacoes') &&
-                !document.getElementById('view-gestao-solicitacoes').classList.contains('hidden')) {
-              renderSolicitacoesGestao();
-            }
-          })
-          .withFailureHandler(function() {
-            if (typeof atualizarBadgeSolicitacoes === 'function') {
-              atualizarBadgeSolicitacoes();
-            }
-          })
-          .listarColaboradoresComAssinaturasPendentes();
+        if (typeof atualizarBadgeSolicitacoes === 'function') {
+          atualizarBadgeSolicitacoes();
+        }
       }
       setTimeout(iniciaPollingSolicitacoes, 120000);
     })
@@ -5416,7 +5399,7 @@ setTimeout(function iniciaPollingSolicitacoes() {
     .listarSolicitacoesMaterial({});
 }, 5000);
 
-
+)
 
     
 $('#lgPass')?.addEventListener('keypress', function(e) {
