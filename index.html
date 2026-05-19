@@ -19272,8 +19272,10 @@ function imprimirFichaSeparacao() {
 const dataHoje = new Date().toLocaleDateString('pt-BR');
 
 // Busca dados do colaborador
-const colabId   = document.getElementById('atendColabId')?.value || '';
-const colabData = (colaboradores || []).find(c => c.id === colabId);
+const colabId   = document.getElementById('atendColabId')?.value || 
+                  window._gestSolAtual?.colaboradorId || '';
+const colabData = (colaboradores || []).find(c => c.id === colabId) ||
+                  (colaboradores || []).find(c => c.nome === nomeColab);
 const funcaoColab = colabData?.funcao || '—';
 const setorColab  = colabData?.setor  || colabData?.base || '—';
 
