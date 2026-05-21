@@ -20943,7 +20943,7 @@ function exportarAnaliseTrocasCSV() {
       r.dataRegistro, r.colaboradorNome, r.itemNome,
       r.diasDecorridos, r.prazoMinDias, efic + '%',
       r.motivo, r.justificativa || '', r.origem, r.armazemNome
-    ].map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',');
+    ].map(v => '"' + String(v).replace(/"/g, '""') + '"').join(';');
   });
 
   const csv = 'sep=;\n' + '\uFEFF' + header.join(';') + '\n' + linhas.join('\n');
