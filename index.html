@@ -20945,7 +20945,7 @@ function exportarAnaliseTrocasCSV() {
     ].map(v => '"' + String(v).replace(/"/g, '""') + '"').join(',');
   });
 
-  const csv  = '\uFEFF' + header.join(',') + '\n' + linhas.join('\n');
+  const csv = 'sep=;\n' + '\uFEFF' + header.join(';') + '\n' + linhas.join('\n');
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
