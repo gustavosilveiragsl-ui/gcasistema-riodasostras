@@ -8736,22 +8736,12 @@ if (atendItemMotivoEl) {
           .withSuccessHandler(function(res) {
             reabilitarBtn();
             if (!res.dentro) {
-  let msg = `⚠️ ATENÇÃO — Item fora do prazo!\n\n`;
-
-  if (res.unidades && res.unidades.length > 1) {
-    msg += `Este colaborador possui ${res.qtdMaxima} unidade(s) deste item.\n`;
-    msg += `${res.unidades.length} unidade(s) estão fora do prazo:\n\n`;
-    res.unidades.forEach((u, i) => {
-      msg += `📦 Unidade ${i + 1}: retirada em ${u.ultimaEntrega} — durou ${u.diasDecorridos} dia(s) de ${u.prazoMinDias} previstos\n`;
-    });
-  } else {
-    msg += `O colaborador retirou este item em ${res.ultimaEntrega}.\n`;
-    msg += `O item durou apenas ${res.diasDecorridos} dia(s) de ${res.prazoMinDias} dia(s) previstos.\n`;
-  }
-
-  msg += `\nDeseja prosseguir com o lançamento?`;
-  if (!confirm(msg)) return;
-}
+            const msg = `⚠️ ATENÇÃO — Item fora do prazo!\n\n` +
+                `O colaborador retirou este item em ${res.ultimaEntrega}.\n` +
+                `O item durou apenas ${res.diasDecorridos} dia(s) de ${res.prazoMinDias} dia(s) previstos.\n\n` +
+                `Deseja prosseguir com o lançamento?`;
+              if (!confirm(msg)) return;
+             }
             
             executarAdicionarItemAtendimento(itemId, armazemId, qtd, motivo);
           })
