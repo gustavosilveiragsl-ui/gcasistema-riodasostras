@@ -8752,7 +8752,7 @@ if (atendItemMotivoEl) {
   msg += `\nDeseja prosseguir com o lançamento?`;
   if (!confirm(msg)) return;
 }
-            }
+            
             executarAdicionarItemAtendimento(itemId, armazemId, qtd, motivo);
           })
           .withFailureHandler(function() {
